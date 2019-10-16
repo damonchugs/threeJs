@@ -14,49 +14,33 @@
   
 </body>
 <script src="https://cdn.bootcss.com/three.js/r83/three.min.js"></script>
-<script src="https://github.com/mrdoob/three.js/blob/master/examples/jsm/WebGL.js"></script>
 <script>
   /**
   * 建立场景 - new THREE.Scene()
   * 建立视角 - new THREE.PerspectiveCamera()
   * 渲染 - new THREE.WebGLRenderer()
   **/
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize( window.innerWidth/2, window.innerHeight/2 );
   document.body.appendChild( renderer.domElement );
 
-  /**
-  * 建立模型 - new THREE.Mesh()
-    - 建立立方体 - new THREE.BoxGeometry()
-    - 建立材质 - MeshBasicMaterial()
-  * 渲染场景 - render()
-  * 立方体动起来 - requestAnimationFrame()
-  **/
-  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-  var cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
+  // 设置渲染器 -> 建立场景
+  var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500)
+  camera.position.set( 0, 0, 100 )
+  camera.lookAt( 0, 0, 0 )
+  var scene = new THREE.Scene()
 
-  camera.position.z = 5;
-
-  var animate = function () {
-    requestAnimationFrame( animate );
-
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-
-    renderer.render( scene, camera );
-  };
+  var texture = new THREE.TextureLoader().load( './lib/texture/water.jpg' )
+  texture.wrapS = THREE.RepeatWraping
+  texture.wrapT = THREE.RepeatWraping
+  texture.repeat.set( 4, 4 )
 
   /**
   * 检查浏览器兼容性
   **/
   if (WEBGL.isWebGLAvailable()) {
     // Initiate function or other initializations here
-    animate();
+    renderer.render( scene, camera )
   } else {
     var warning = WEBGL.getWebGLErrorMessage();
     document.getElementById('container').appendChild(warning);
