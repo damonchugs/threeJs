@@ -14,7 +14,6 @@
   
 </body>
 <script src="https://cdn.bootcss.com/three.js/r83/three.min.js"></script>
-<script src="./js/WebGL.js"></script>
 <script>
   /**
   * 建立场景 - new THREE.Scene()
@@ -31,18 +30,10 @@
   camera.lookAt( 0, 0, 0 )
   var scene = new THREE.Scene()
 
-  // 定义材质
-  var material = new THREE.LineBasicMaterial( { color: 0x0000ff } )
-
-  // 选择 Geometry or BufferGeometry
-  var geometry = new THREE.Geometry()
-  geometry.vertices.push(new THREE.Vector3( -10, 0, 0) )
-  geometry.vertices.push(new THREE.Vector3( 0, 10, 0) )
-  geometry.vertices.push(new THREE.Vector3( 10, 0, 0) )
-  var line = new THREE.Line( geometry, material )
-
-  // line 添加入场景
-  scene.add(line)
+  var texture = new THREE.TextureLoader().load( './lib/texture/water.jpg' )
+  texture.wrapS = THREE.RepeatWraping
+  texture.wrapT = THREE.RepeatWraping
+  texture.repeat.set( 4, 4 )
 
   /**
   * 检查浏览器兼容性
