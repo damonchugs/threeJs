@@ -1,2 +1,4 @@
 # threeJs
-rookie stydy
+rookie study
+
+## it is a time to study ThreeJs now !!!
